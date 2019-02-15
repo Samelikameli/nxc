@@ -1,0 +1,48 @@
+int getDistance(){
+    return SensorUS(IN_4)-1;
+}
+task main(){
+    SetSensorUltrasonic(IN_4);
+    bool found=true;
+    int distance=30;
+    int x;
+    while(true){
+        while(true){
+            OnFwd(OUT_A,40);
+            while(MotorRotationCount(OUT_A)<150){
+                x=getDistance();
+                ClearScreen();
+                TextOut(0,0,NumToStr(x));
+                if(x<distance){
+                    OnFwd(OUT_A,0);
+                    found=true;
+                    PlayTone(1000,100);
+                    OnFwd(OUT_A,0);
+                    break;
+                }
+            }
+            if(found){
+                break;
+            }
+            OnFwd(OUT_A,-40);
+            while(MotorRotationCount(OUT_A)>-150){
+                x=getDistance();
+                ClearScreen();
+                TextOut(0,0,NumToStr(x));
+                if(x<distance){
+                    OnFwd(OUT_A,0);
+                    found=true;
+                    PlayTone(1000,100);
+                    OnFwd(OUT_A,0);
+                    break;
+                }
+            }
+            if(found){
+                break;
+            }
+        }
+
+        found=false;
+        Wait(1000);
+    }
+}

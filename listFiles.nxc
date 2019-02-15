@@ -1,0 +1,15 @@
+task main(){
+  ListFilesType args;
+  args.Pattern = "*.rmd";
+  SysListFiles(args);
+  if (args.Result == NO_ERR && ArrayLen(args.FileList) > 0)
+  {
+    for(int i=0;i<ArrayLen(args.FileList);i++){
+    ClearScreen();
+    TextOut(0, LCD_LINE6, args.FileList[i]);
+    string file=args.FileList[i];
+    DeleteFile(file);
+    Wait(0);
+    }
+  }
+}

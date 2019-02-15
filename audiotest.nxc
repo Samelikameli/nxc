@@ -1,0 +1,6 @@
+#download "janis0.rmd";
+task main(){
+    PlayFileEx("janis0.rmd",4,false);
+    while(true){
+    }
+}
